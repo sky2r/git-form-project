@@ -13,14 +13,18 @@
 		height: 100%;
 	}
 </style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
+
 <!-- jQuery library -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- Popper JS -->
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -29,19 +33,32 @@
 	<div class="container">
 		<div class="row">
 			<!-- 탭 -->
-			<div class="col-sm-8">
-				<!-- Nav tabs -->
+			<div class="col-sm-8">				
 				<ul class="nav nav-tabs">
 					</li>
 					<li class="nav-item"><a class="nav-link" data-toggle="tab"
-						href="#menu1">Menu 1</a></li>
+						href="#menu1">Menu 1</a></li>			
 					<li class="nav-item"><a class="nav-link" data-toggle="tab"
 						href="#menu2">Menu 2</a></li>
-				</ul>
-
+				</ul>				
 				<!-- Tab panes -->
 				<div class="tab-content">
-					<div class="tab-pane container" id="menu1">...</div>
+				<!-- 첫번째 탭 -->					
+					<a id="Tip" href="#" data-toggle="popover" data-content="국가기간산업">
+					<span class="badge badge-secondary">Tip</span>
+					</a>
+					
+				<div>
+                        <input id="beginDate" type="text"> 
+                        ~
+                        <input id="endDate"type="text">
+                        
+                        <button id="btnWeek">1주일</button>
+                        <button id="btnMonth">1개월</button>
+                        <button id="btn3Month">3개월</button>
+                    </div>
+					
+					<!-- 두전째 탭 -->
 					<div class="tab-pane container" id="menu2">
 						<!-- 시(도) 선택버튼 -->
 						<div>
@@ -63,7 +80,7 @@
 							<button id="btnChonnam" class="btn btn-primary">전남</button>
 							<button id="btnJeju" class="btn btn-primary">제주</button>					 
 						</div>
-					</div>
+					</div>																													
 					<div class="form-group">
 						<!-- 선택시(도) -->
 						<label id="targetLabel" for="comment"></label>
@@ -87,18 +104,30 @@
                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                         <li data-target="#myCarousel" data-slide-to="1"></li>
                         <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                        <li data-target="#myCarousel" data-slide-to="4"></li>
+                        <li data-target="#myCarousel" data-slide-to="5"></li>
                     </ul>
  
                     <!-- The slideshow -->
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="la.jpg" alt="Los Angeles" width="1100" height="500">
+                            <img src="00.jpg" alt="00" width="1100" height="500">
                         </div>
                         <div class="carousel-item">
-                            <img src="chicago.jpg" alt="Chicago" width="1100" height="500">
+                            <img src="01.jpg" alt="01" width="1100" height="500">
                         </div>
                         <div class="carousel-item">
-                            <img src="ny.jpg" alt="New York" width="1100" height="500">
+                            <img src="02.jpg" alt="02" width="1100" height="500">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="03.jpg" alt="03" width="1100" height="500">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="04.jpg" alt="04" width="1100" height="500">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="05.jpg" alt="05" width="1100" height="500">
                         </div>
                     </div>
                     <!-- Left and right controls -->
@@ -109,10 +138,48 @@
                     </a>
                 </div>
 
-          
+            </div>
+        </div>
 		</div>
 </body>
 <script>
+	$('#beginDate').datepicker({		
+	      showOn: "button",
+	      buttonImage: "./date.png",
+	      buttonImageOnly: true,
+	      buttonText: "Select date"
+	    });
+	$('#beginDate').datepicker('option','dateFormat','yy-mm-dd');
+	
+	$('#endDate').datepicker({	
+	      showOn: "button",
+	      buttonImage: "./date.png",
+	      buttonImageOnly: true,
+	      buttonText: "Select date"
+	    });
+	$('#endDate').datepicker('option','dateFormat','yy-mm-dd');
+	
+	let d = new Date();
+	let year = d.getFullYear();
+	let month = d.getMonth()+1;
+	let day = d.getDate();
+	console.log(year);
+	console.log(month);
+	console.log(day);
+	$('#beginDate').val(`${year}-${month}-${day}`);
+	$('#endDate').val(`${year}-${month}-${day}`);	
+	
+	let beginDate = d;
+	let endDate = d;	
+	$('#btnWeek').click(function(){
+		endDate.setDate(beginDate.getDate() + 7);
+		$('#endDate').val(`${endDate.getFullYear()}-${endDate.getMonth()}-${endDate.getDay()}`)
+	});
+	
+	
+	
+	$('#Tip').popover();
+			
 	$('#btnSeoul').click(function() {
 		console.log('#btnSeoul click');
 		$('#targetLabel').text('서울');
